@@ -1,11 +1,9 @@
 import './../styles/App.css';
+// import LinkList from './LinkList';
+import CreateLink from './CreateLink';
 
 function App() {
-  return (
-    <div className="App">
-      App goes here for creds
-    </div>
-  );
+  return <CreateLink />;
 }
 
 export default App;
