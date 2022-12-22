@@ -18,7 +18,7 @@ async function post(parent, args, context, info) {
     }
   });
 
-  context.pubsub.publish('NEW_LINK', newLink);
+  // context.pubsub.publish('NEW_LINK', newLink);
 
   return newLink;
 }
@@ -85,7 +85,7 @@ async function vote(parent, args, context, info) {
       link: { connect: { id: args.linkId } }
     }
   });
-  context.pubsub.publish('NEW_VOTE', newVote);
+  // context.pubsub.publish('NEW_VOTE', newVote);
 
   return newVote;
 }
