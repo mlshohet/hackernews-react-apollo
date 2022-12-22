@@ -3,7 +3,8 @@ import LinkList from "./LinkList";
 import CreateLink from "./CreateLink";
 import Header from "./Header";
 import { Route, Routes } from "react-router-dom";
-import Login from './Login';
+import Login from "./Login";
+import Search from "./Search";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<LinkList />} />
           <Route path="/create" element={<CreateLink />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
       </div>
     </div>

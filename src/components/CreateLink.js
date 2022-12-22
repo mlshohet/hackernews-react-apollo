@@ -10,16 +10,11 @@ const CREATE_LINK_MUTATION = gql`
       createdAt
       url
       description
-      postedBy {
-        id
-        name
-      }
-      votes {
-        id
-      }
     }
   }
 `;
+
+
 
 const CreateLink = () => {
   const [formState, setFormState] = useState({
@@ -34,18 +29,27 @@ const CreateLink = () => {
       description: formState.description,
       url: formState.url,
     },
-    update: (cache, { data: { post } }) => {
-      
+    update: (cache, arg) => {
       const data = cache.readQuery({
         query: FEED_QUERY,
       });
-      console.log("DATA: ", data);
-      console.log("LINKS: ", data.feed.links);
       cache.writeQuery({
-        query: FEED_QUERY,
+        query: gql`
+        {
+          feed {
+            id
+            links {
+              id
+              createdAt
+              url
+              description
+            }
+          }
+        }`,
         data: {
           feed: {
-            links: [post, ...data.feed.links],
+            ...data.feed,
+            links: [arg.data.post, ...data.feed.links],
           },
         },
       });
