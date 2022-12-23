@@ -8,7 +8,7 @@ import {
   createHttpLink,
   InMemoryCache,
 } from "@apollo/client";
-import { setContext } from '@apollo/client/link/context';
+import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter } from "react-router-dom";
 import { AUTH_TOKEN } from "./constants";
 
@@ -28,7 +28,19 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Feed: {
+        fields: {
+          links: {
+            merge(existing = [], incoming) {
+              return [...incoming];
+            },
+          },
+        },
+      },
+    },
+  }),
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
