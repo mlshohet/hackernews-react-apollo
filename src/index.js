@@ -33,9 +33,14 @@ const client = new ApolloClient({
       Feed: {
         fields: {
           links: {
-            merge(existing = [], incoming) {
-              return [...incoming];
+            keyArgs: false,
+            merge(existing = [], incoming, { variables }) {
+              console.log("ARGS: ", variables);
+              return [...incoming, ...existing];
             },
+            read(existing, { variables }) {
+              return existing && existing.slice(variables.skip, variables.take);
+            }
           },
         },
       },
